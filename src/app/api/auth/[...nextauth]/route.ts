@@ -19,7 +19,7 @@ export const authOptions: NextAuthOptions = {
                 if (credentials.username === "admin@poll.com" && credentials.password === "admin123") {
                     console.log("[Auth] Hardcoded Admin login successful");
                     return {
-                        id: "sys-admin-001",
+                        id: "000000000000000000000ad1", // Valid 24-char hex string to satisfy MongoDB CastError on votes
                         name: "Admin User",
                         role: "admin"
                     };
