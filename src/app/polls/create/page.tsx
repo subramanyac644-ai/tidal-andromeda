@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 
 export default function CreatePoll() {
@@ -15,10 +16,11 @@ export default function CreatePoll() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
-    if (status === "unauthenticated") {
-        router.push("/login");
-        return null;
-    }
+    useEffect(() => {
+        if (status === "unauthenticated") {
+            router.push("/login");
+        }
+    }, [status, router]);
 
     const handleOptionChange = (index: number, value: string) => {
         const newOptions = [...options];
@@ -71,8 +73,13 @@ export default function CreatePoll() {
         }
     };
 
-    if (status === "loading") {
-        return <div className="container" style={{ padding: "100px 0", textAlign: "center" }}>Loading...</div>;
+    if (status === "loading" || status === "unauthenticated") {
+        return (
+            <div className="container" style={{ padding: "100px 0", textAlign: "center" }}>
+                <div style={{ width: '40px', height: '40px', margin: '0 auto', border: '3px solid var(--border-color)', borderTopColor: 'var(--accent-primary)', borderRadius: '50%', animation: 'spin 1s linear infinite' }}></div>
+                <p style={{ marginTop: '16px', color: 'var(--text-secondary)' }}>{status === "loading" ? "Loading..." : "Redirecting to login..."}</p>
+            </div>
+        );
     }
 
     return (
@@ -82,6 +89,12 @@ export default function CreatePoll() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
             >
+                <div style={{ marginBottom: "24px" }}>
+                    <Link href="/" className="btn-secondary" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '8px 16px', fontSize: '0.9rem' }}>
+                        <span>←</span> Back
+                    </Link>
+                </div>
+
                 <div style={{ marginBottom: "32px" }}>
                     <h1 style={{ fontSize: "2.5rem", marginBottom: "8px" }}>Create New Poll</h1>
                     <p style={{ color: "var(--text-secondary)", fontSize: "1.1rem" }}>Design your poll and share it with the world.</p>

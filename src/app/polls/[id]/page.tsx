@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 
 export default function PollDetails() {
@@ -36,7 +37,9 @@ export default function PollDetails() {
             const votes = data.options.reduce((acc: number, opt: any) => acc + opt.votes, 0);
             setTotalVotes(votes);
 
-            if (session && data.voters.includes(session.user.id)) {
+            if (session && data.voters.some((voterId: any) =>
+                (voterId._id?.toString() || voterId.toString()) === session.user.id
+            )) {
                 setHasVoted(true);
             }
         } catch (err) {
@@ -89,7 +92,7 @@ export default function PollDetails() {
         </div>
     );
 
-    const showResults = hasVoted || !poll.active || (session && session.user.role === 'admin');
+    const showResults = hasVoted || !poll.active;
 
     return (
         <div className="container" style={{ maxWidth: "800px", padding: "60px 24px" }}>
@@ -98,21 +101,31 @@ export default function PollDetails() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
             >
-                <div style={{ marginBottom: "32px", display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-                    <div>
-                        {!poll.active && (
-                            <span style={{ display: 'inline-block', marginBottom: '12px', background: 'rgba(239, 68, 68, 0.1)', color: 'var(--danger)', padding: '6px 12px', borderRadius: '4px', fontSize: '0.85rem', fontWeight: 600 }}>This poll is closed</span>
-                        )}
-                        <h1 style={{ fontSize: "2.5rem", marginBottom: "8px", lineHeight: "1.2" }}>{poll.title}</h1>
-                        {poll.description && (
-                            <p style={{ color: "var(--text-secondary)", fontSize: "1.1rem", marginBottom: "16px" }}>{poll.description}</p>
-                        )}
-                        <div style={{ display: "flex", alignItems: "center", gap: "12px", color: "var(--text-secondary)", fontSize: "0.9rem" }}>
-                            <span>Created by <strong style={{ color: "var(--text-primary)" }}>{poll.creator.username}</strong></span>
-                            <span>•</span>
-                            <span>{new Date(poll.createdAt).toLocaleDateString()}</span>
-                            <span>•</span>
-                            <span>{totalVotes} total votes</span>
+                <div style={{ marginBottom: "24px" }}>
+                    <Link href="/" className="btn-secondary" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '8px 16px', fontSize: '0.9rem' }}>
+                        <span>←</span> Back to Explore
+                    </Link>
+                </div>
+
+                <div style={{ marginBottom: "32px", display: "flex", flexDirection: "column", gap: "16px" }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                        <div>
+                            {!poll.active && (
+                                <span style={{ display: 'inline-block', marginBottom: '12px', background: 'rgba(239, 68, 68, 0.1)', color: 'var(--danger)', padding: '6px 12px', borderRadius: '4px', fontSize: '0.85rem', fontWeight: 600 }}>This poll is closed</span>
+                            )}
+                            <h1 style={{ fontSize: "2.5rem", marginBottom: "8px", lineHeight: "1.2" }}>{poll.title}</h1>
+                            {poll.description && (
+                                <p style={{ color: "var(--text-secondary)", fontSize: "1.1rem", marginBottom: "16px" }}>{poll.description}</p>
+                            )}
+                            <div style={{ display: "flex", alignItems: "center", gap: "12px", color: "var(--text-secondary)", fontSize: "0.95rem" }}>
+                                <span>By <strong style={{ color: "var(--text-primary)" }}>{poll.creator?.username || 'Unknown'}</strong></span>
+                                <span>•</span>
+                                <span>{new Date(poll.createdAt).toLocaleDateString()}</span>
+                            </div>
+                        </div>
+                        <div style={{ background: "rgba(124, 58, 237, 0.1)", padding: "12px 20px", borderRadius: "12px", border: "1px solid rgba(124, 58, 237, 0.2)", textAlign: "center" }}>
+                            <div style={{ fontSize: "1.5rem", fontWeight: 700, color: "var(--accent-secondary)" }}>{totalVotes}</div>
+                            <div style={{ fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "1px", color: "var(--text-secondary)" }}>Votes</div>
                         </div>
                     </div>
                 </div>

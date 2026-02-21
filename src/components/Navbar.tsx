@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
+import ThemeToggle from "./ThemeToggle";
 
 export default function Navbar() {
     const { data: session } = useSession();
@@ -24,6 +25,7 @@ export default function Navbar() {
                 </Link>
 
                 <div className="nav-links">
+                    <ThemeToggle />
                     {session ? (
                         <>
                             <Link href="/dashboard" className={`nav-link ${pathname === '/dashboard' ? 'active' : ''}`}>

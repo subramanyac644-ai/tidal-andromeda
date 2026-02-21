@@ -85,6 +85,12 @@ export default function Dashboard() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4 }}
             >
+                <div style={{ marginBottom: "24px" }}>
+                    <Link href="/" className="btn-secondary" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '8px 16px', fontSize: '0.9rem' }}>
+                        <span>←</span> Back to Home
+                    </Link>
+                </div>
+
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "32px", borderBottom: '1px solid var(--border-color)', paddingBottom: '16px' }}>
                     <div>
                         <h1 style={{ fontSize: "2.5rem", marginBottom: "8px" }}>Dashboard</h1>

@@ -47,7 +47,7 @@ export default function Home() {
 
       <section className="container" style={{ paddingBottom: "100px" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "32px", borderBottom: '1px solid var(--border-color)', paddingBottom: '16px' }}>
-          <h2 style={{ margin: 0 }}>Recent Polls</h2>
+          <h2 style={{ margin: 0 }}>Explore Community Polls</h2>
           <Link href="/polls/create" className="btn-secondary" style={{ padding: "8px 16px", fontSize: "0.9rem" }}>
             + Create New
           </Link>
@@ -88,15 +88,16 @@ export default function Home() {
                       <div className="flex items-center justify-between" style={{ marginTop: "auto", paddingTop: "16px", borderTop: "1px solid var(--border-color)" }}>
                         <div className="flex items-center gap-2">
                           <div style={{ width: '24px', height: '24px', borderRadius: '50%', background: 'linear-gradient(135deg, var(--accent-primary), var(--accent-secondary))', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '0.75rem', fontWeight: 'bold' }}>
-                            {poll.creator?.username?.charAt(0).toUpperCase()}
+                            {poll.creator?.username?.charAt(0).toUpperCase() || '?'}
                           </div>
                           <span style={{ fontSize: "0.85rem", color: "var(--text-secondary)" }}>
-                            {poll.creator?.username}
+                            {poll.creator?.username || 'Community'}
                           </span>
                         </div>
-                        <span style={{ fontSize: "0.85rem", background: "rgba(255,255,255,0.05)", padding: "4px 8px", borderRadius: "12px", color: "var(--text-secondary)" }}>
-                          {poll.options.reduce((acc: number, opt: any) => acc + opt.votes, 0)} votes
-                        </span>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '4px', padding: '4px 10px', background: 'rgba(124, 58, 237, 0.1)', color: 'var(--accent-secondary)', borderRadius: '10px', fontSize: '0.8rem', fontWeight: 600 }}>
+                          <span>📊</span>
+                          <span>{poll.options.reduce((acc: number, opt: any) => acc + opt.votes, 0)} v</span>
+                        </div>
                       </div>
                     </div>
                   </Link>

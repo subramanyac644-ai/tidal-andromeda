@@ -28,13 +28,18 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
         }
 
         const userId = session.user.id;
-        if (poll.voters.includes(userId as any)) {
+        const alreadyVoted = poll.voters.some((voterId: any) => voterId.toString() === userId.toString());
+
+        console.log(`[Voting API] User: ${userId}, Poll: ${p.id}, Already Voted: ${alreadyVoted}`);
+
+        if (alreadyVoted) {
             return NextResponse.json({ message: "You have already voted on this poll" }, { status: 400 });
         }
 
-        const optionIndex = poll.options.findIndex((opt: any) => opt._id.toString() === optionId);
+        const optionIndex = poll.options.findIndex((opt: any) => opt._id.toString() === optionId.toString());
 
         if (optionIndex === -1) {
+            console.warn(`[Voting API] Invalid option ${optionId} for poll ${p.id}`);
             return NextResponse.json({ message: "Invalid option" }, { status: 400 });
         }
 
@@ -42,6 +47,7 @@ export async function POST(req: Request, { params }: { params: Promise<{ id: str
         poll.voters.push(userId as any);
 
         await poll.save();
+        console.log(`[Voting API] Vote successful for user ${userId} on poll ${p.id}`);
 
         return NextResponse.json({ message: "Vote cast successfully", poll });
     } catch (error) {
