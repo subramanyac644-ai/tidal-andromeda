@@ -128,9 +128,12 @@ export default function Dashboard() {
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4 }}
             >
-                <div style={{ marginBottom: "24px" }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: "24px" }}>
                     <Link href="/" className="btn-secondary" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '8px 16px', fontSize: '0.9rem' }}>
                         <span>←</span> Back to Home
+                    </Link>
+                    <Link href="/polls" className="btn-secondary" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '8px 16px', fontSize: '0.9rem', color: "var(--accent-primary)", borderColor: "var(--accent-primary)" }}>
+                        <span>🧭</span> Explore All Polls
                     </Link>
                 </div>
 

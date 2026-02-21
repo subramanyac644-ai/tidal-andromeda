@@ -31,6 +31,9 @@ export default function Navbar() {
                             <Link href="/dashboard" className={`nav-link ${pathname === '/dashboard' ? 'active' : ''}`}>
                                 Dashboard
                             </Link>
+                            <Link href="/polls" className={`nav-link ${pathname === '/polls' ? 'active' : ''}`} style={{ fontWeight: 600, color: "var(--accent-primary)" }}>
+                                🧭 Explore
+                            </Link>
                             <Link href="/polls/create" className={`nav-link ${pathname === '/polls/create' ? 'active' : ''}`}>
                                 Create Poll
                             </Link>
