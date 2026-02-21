@@ -41,14 +41,15 @@ export default function Navbar() {
                                         <span style={{ marginLeft: '4px', color: 'var(--accent-primary)', fontWeight: 'bold' }}>(Admin)</span>
                                     )}
                                 </span>
-                                <button onClick={() => signOut()} className="btn-secondary" style={{ padding: "8px 16px", fontSize: "0.9rem" }}>
+                                <button onClick={() => signOut({ callbackUrl: '/' })} className="btn-secondary" style={{ padding: "8px 16px", fontSize: "0.9rem" }}>
                                     Logout
                                 </button>
                             </div>
                         </>
                     ) : (
                         <>
-                            <Link href="/login" className="btn-primary" style={{ padding: "8px 24px" }}>Login</Link>
+                            <Link href="/login" className="nav-link">Login</Link>
+                            <Link href="/register" className="btn-primary" style={{ padding: "8px 20px" }}>Sign Up</Link>
                         </>
                     )}
                 </div>

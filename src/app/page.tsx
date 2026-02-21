@@ -35,8 +35,11 @@ export default function Home() {
             Create stunning, interactive polls in seconds. Gather insights with style and experience unparalleled user engagement.
           </p>
           <div className="flex items-center gap-4" style={{ justifyContent: "center" }}>
-            <Link href="/login" className="btn-primary" style={{ padding: "16px 48px", fontSize: "1.1rem" }}>
-              Sign In to Admin
+            <Link href="/register" className="btn-primary" style={{ padding: "16px 32px", fontSize: "1.1rem" }}>
+              Get Started Now
+            </Link>
+            <Link href="/login" className="btn-secondary" style={{ padding: "16px 32px", fontSize: "1.1rem" }}>
+              Sign In
             </Link>
           </div>
         </motion.div>
