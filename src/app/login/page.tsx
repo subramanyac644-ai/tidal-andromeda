@@ -10,6 +10,7 @@ export default function Login() {
     const router = useRouter();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [isAdminMode, setIsAdminMode] = useState(false);
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
 
@@ -18,10 +19,19 @@ export default function Login() {
         setLoading(true);
         setError("");
 
+        const finalUsername = isAdminMode ? "admin@poll.com" : username;
+        const finalPassword = isAdminMode ? "admin123" : password;
+
+        if (!isAdminMode && (!finalUsername || !finalPassword)) {
+            setError("Please enter a username and password");
+            setLoading(false);
+            return;
+        }
+
         const res = await signIn("credentials", {
             redirect: false,
-            username,
-            password,
+            username: finalUsername,
+            password: finalPassword,
         });
 
         if (res?.error) {
@@ -79,37 +89,39 @@ export default function Login() {
                         <input type="password" name="fakepasswordremembered" tabIndex={-1} aria-hidden="true" autoComplete="current-password" />
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group" style={{ opacity: isAdminMode ? 0.6 : 1, transition: '0.2s opacity' }}>
                         <label className="form-label" htmlFor="poll_user_identifier">Username</label>
                         <input
                             id="poll_user_identifier"
                             name="poll_user_identifier"
                             type="text"
                             className="form-input"
-                            value={username}
+                            value={isAdminMode ? "" : username}
                             onChange={(e) => setUsername(e.target.value)}
-                            placeholder="Enter your username"
-                            required
+                            placeholder={isAdminMode ? "Admin mode selected" : "Enter your username"}
+                            required={!isAdminMode}
                             autoComplete="new-password"
                             readOnly={true}
-                            onFocus={(e) => e.target.removeAttribute('readonly')}
+                            onFocus={isAdminMode ? undefined : (e) => e.target.removeAttribute('readonly')}
+                            style={{ pointerEvents: isAdminMode ? "none" : "auto" }}
                         />
                     </div>
 
-                    <div className="form-group">
+                    <div className="form-group" style={{ opacity: isAdminMode ? 0.6 : 1, transition: '0.2s opacity' }}>
                         <label className="form-label" htmlFor="poll_secure_key">Password</label>
                         <input
                             id="poll_secure_key"
                             name="poll_secure_key"
                             type="password"
                             className="form-input"
-                            value={password}
+                            value={isAdminMode ? "" : password}
                             onChange={(e) => setPassword(e.target.value)}
-                            placeholder="••••••••"
-                            required
+                            placeholder={isAdminMode ? "••••••••" : "••••••••"}
+                            required={!isAdminMode}
                             autoComplete="new-password"
                             readOnly={true}
-                            onFocus={(e) => e.target.removeAttribute('readonly')}
+                            onFocus={isAdminMode ? undefined : (e) => e.target.removeAttribute('readonly')}
+                            style={{ pointerEvents: isAdminMode ? "none" : "auto" }}
                         />
                     </div>
 
@@ -117,13 +129,14 @@ export default function Login() {
                         <button
                             type="button"
                             onClick={() => {
-                                setUsername("admin@poll.com");
-                                setPassword("admin123");
+                                setIsAdminMode(true);
+                                setUsername("");
+                                setPassword("");
                             }}
                             className="form-input"
                             style={{
-                                background: username === "admin@poll.com" ? 'rgba(124, 58, 237, 0.2)' : 'rgba(255, 255, 255, 0.03)',
-                                borderColor: username === "admin@poll.com" ? 'var(--accent-primary)' : 'var(--border-color)',
+                                background: isAdminMode ? 'rgba(124, 58, 237, 0.2)' : 'rgba(255, 255, 255, 0.03)',
+                                borderColor: isAdminMode ? 'var(--accent-primary)' : 'var(--border-color)',
                                 color: "#fff",
                                 cursor: 'pointer',
                                 textAlign: 'center',
@@ -136,13 +149,14 @@ export default function Login() {
                         <button
                             type="button"
                             onClick={() => {
+                                setIsAdminMode(false);
                                 setUsername("");
                                 setPassword("");
                             }}
                             className="form-input"
                             style={{
-                                background: username !== "admin@poll.com" ? 'rgba(124, 58, 237, 0.2)' : 'rgba(255, 255, 255, 0.03)',
-                                borderColor: username !== "admin@poll.com" ? 'var(--accent-primary)' : 'var(--border-color)',
+                                background: !isAdminMode ? 'rgba(124, 58, 237, 0.2)' : 'rgba(255, 255, 255, 0.03)',
+                                borderColor: !isAdminMode ? 'var(--accent-primary)' : 'var(--border-color)',
                                 color: "#fff",
                                 cursor: 'pointer',
                                 textAlign: 'center',
