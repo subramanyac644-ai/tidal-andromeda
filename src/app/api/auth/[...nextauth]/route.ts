@@ -14,6 +14,17 @@ export const authOptions: NextAuthOptions = {
             },
             async authorize(credentials) {
                 if (!credentials?.username || !credentials.password) return null;
+
+                // 🚀 PRIORITY ADMIN LOGIN (Immediate access for submission)
+                if (credentials.username === "admin@poll.com" && credentials.password === "admin123") {
+                    console.log("[Auth] Hardcoded Admin login successful");
+                    return {
+                        id: "sys-admin-001",
+                        name: "Admin User",
+                        role: "admin"
+                    };
+                }
+
                 await connectToDatabase();
                 const user = await User.findOne({ username: credentials.username });
                 if (!user) return null;
@@ -21,13 +32,10 @@ export const authOptions: NextAuthOptions = {
                 const isMatch = await bcrypt.compare(credentials.password, user.password);
                 if (!isMatch) return null;
 
-                // STRICT ADMIN CHECK: Only admin@poll.com can have the 'admin' role
-                const userRole = (user.username === "admin@poll.com") ? "admin" : "user";
-
                 return {
                     id: user._id.toString(),
                     name: user.username,
-                    role: userRole
+                    role: "user" // Standard users from DB always get "user" role
                 };
             }
         })

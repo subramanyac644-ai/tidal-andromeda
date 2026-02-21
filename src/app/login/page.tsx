@@ -85,20 +85,7 @@ export default function Login() {
                     </button>
                 </form>
 
-                <p style={{ textAlign: "center", color: "var(--text-secondary)", marginTop: "24px", fontSize: "0.95rem" }}>
-                    Don't have an account?{" "}
-                    <Link
-                        href="/register"
-                        style={{
-                            color: "var(--accent-primary)",
-                            fontWeight: 700,
-                            textDecoration: "underline",
-                            textUnderlineOffset: "4px"
-                        }}
-                    >
-                        Create an account
-                    </Link>
-                </p>
+                {/* Registration link removed */}
             </motion.div>
         </div>
     );

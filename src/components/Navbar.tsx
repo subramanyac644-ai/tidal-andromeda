@@ -48,8 +48,7 @@ export default function Navbar() {
                         </>
                     ) : (
                         <>
-                            <Link href="/login" className="nav-link">Login</Link>
-                            <Link href="/register" className="btn-primary" style={{ padding: "8px 20px" }}>Sign Up</Link>
+                            <Link href="/login" className="btn-primary" style={{ padding: "8px 24px" }}>Login</Link>
                         </>
                     )}
                 </div>
