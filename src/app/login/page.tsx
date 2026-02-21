@@ -42,7 +42,26 @@ export default function Login() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
             >
-                <div style={{ textAlign: "center", marginBottom: "32px" }}>
+                <div style={{ position: "relative", marginBottom: "32px", textAlign: "center" }}>
+                    <button
+                        onClick={() => router.push("/")}
+                        style={{
+                            position: "absolute",
+                            left: 0,
+                            top: "50%",
+                            transform: "translateY(-50%)",
+                            background: "none",
+                            border: "none",
+                            color: "var(--text-secondary)",
+                            cursor: "pointer",
+                            fontSize: "0.9rem",
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "4px"
+                        }}
+                    >
+                        ← Back
+                    </button>
                     <h1 style={{ fontSize: "2rem", marginBottom: "8px" }}>Welcome Back</h1>
                     <p style={{ color: "var(--text-secondary)" }}>Sign in to continue to NovaPolls</p>
                 </div>
@@ -67,7 +86,7 @@ export default function Login() {
                         />
                     </div>
 
-                    <div className="form-group mb-4">
+                    <div className="form-group">
                         <label className="form-label" htmlFor="password">Password</label>
                         <input
                             id="password"
@@ -78,6 +97,47 @@ export default function Login() {
                             placeholder="••••••••"
                             required
                         />
+                    </div>
+
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginBottom: "24px" }}>
+                        <button
+                            type="button"
+                            onClick={() => {
+                                setUsername("admin@poll.com");
+                                setPassword("admin123");
+                            }}
+                            className="form-input"
+                            style={{
+                                background: username === "admin@poll.com" ? 'rgba(124, 58, 237, 0.2)' : 'rgba(255, 255, 255, 0.03)',
+                                borderColor: username === "admin@poll.com" ? 'var(--accent-primary)' : 'var(--border-color)',
+                                color: "#fff",
+                                cursor: 'pointer',
+                                textAlign: 'center',
+                                fontWeight: 600,
+                                fontSize: '0.9rem'
+                            }}
+                        >
+                            Admin Login
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() => {
+                                setUsername("");
+                                setPassword("");
+                            }}
+                            className="form-input"
+                            style={{
+                                background: username !== "admin@poll.com" ? 'rgba(124, 58, 237, 0.2)' : 'rgba(255, 255, 255, 0.03)',
+                                borderColor: username !== "admin@poll.com" ? 'var(--accent-primary)' : 'var(--border-color)',
+                                color: "#fff",
+                                cursor: 'pointer',
+                                textAlign: 'center',
+                                fontWeight: 600,
+                                fontSize: '0.9rem'
+                            }}
+                        >
+                            User Login
+                        </button>
                     </div>
 
                     <button type="submit" className="btn-primary w-full" disabled={loading} style={{ justifyContent: "center", padding: "14px" }}>

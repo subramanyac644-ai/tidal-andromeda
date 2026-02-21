@@ -47,7 +47,26 @@ export default function Register() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
             >
-                <div style={{ textAlign: "center", marginBottom: "32px" }}>
+                <div style={{ position: "relative", marginBottom: "32px", textAlign: "center" }}>
+                    <button
+                        onClick={() => router.push("/")}
+                        style={{
+                            position: "absolute",
+                            left: 0,
+                            top: "50%",
+                            transform: "translateY(-50%)",
+                            background: "none",
+                            border: "none",
+                            color: "var(--text-secondary)",
+                            cursor: "pointer",
+                            fontSize: "0.9rem",
+                            display: "flex",
+                            alignItems: "center",
+                            gap: "4px"
+                        }}
+                    >
+                        ← Back
+                    </button>
                     <h1 style={{ fontSize: "2rem", marginBottom: "8px" }}>Join NovaPolls</h1>
                     <p style={{ color: "var(--text-secondary)" }}>Create your account to start polling</p>
                 </div>
