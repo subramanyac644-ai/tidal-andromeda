@@ -60,7 +60,7 @@ export default function Home() {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" style={{ gap: "24px" }}>
-            {polls.length === 0 ? (
+            {!Array.isArray(polls) || polls.length === 0 ? (
               <div className="glass-panel text-center w-full" style={{ gridColumn: "1 / -1", padding: "60px 0" }}>
                 <div style={{ fontSize: "3rem", marginBottom: "16px", opacity: 0.5 }}>📊</div>
                 <h3 style={{ fontSize: "1.5rem", marginBottom: "8px" }}>No polls found</h3>

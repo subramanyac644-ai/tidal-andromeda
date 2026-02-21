@@ -97,7 +97,7 @@ export default function Dashboard() {
                     </Link>
                 </div>
 
-                {displayedPolls.length === 0 ? (
+                {!Array.isArray(displayedPolls) || displayedPolls.length === 0 ? (
                     <div className="glass-panel text-center" style={{ padding: "60px 0" }}>
                         <div style={{ fontSize: "3rem", marginBottom: "16px", opacity: 0.5 }}>📝</div>
                         <h3 style={{ fontSize: "1.5rem", marginBottom: "8px" }}>{isAdmin ? "No polls on the platform yet" : "You haven't created any polls yet"}</h3>
