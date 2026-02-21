@@ -96,6 +96,8 @@ export default function Register() {
                             placeholder="Choose a username"
                             required
                             autoComplete="new-password"
+                            readOnly={true}
+                            onFocus={(e) => e.target.removeAttribute('readonly')}
                         />
                     </div>
 
@@ -111,6 +113,8 @@ export default function Register() {
                             placeholder="••••••••"
                             required
                             autoComplete="new-password"
+                            readOnly={true}
+                            onFocus={(e) => e.target.removeAttribute('readonly')}
                         />
                     </div>
 

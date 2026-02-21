@@ -91,6 +91,8 @@ export default function Login() {
                             placeholder="Enter your username"
                             required
                             autoComplete="new-password"
+                            readOnly={true}
+                            onFocus={(e) => e.target.removeAttribute('readonly')}
                         />
                     </div>
 
@@ -106,6 +108,8 @@ export default function Login() {
                             placeholder="••••••••"
                             required
                             autoComplete="new-password"
+                            readOnly={true}
+                            onFocus={(e) => e.target.removeAttribute('readonly')}
                         />
                     </div>
 
