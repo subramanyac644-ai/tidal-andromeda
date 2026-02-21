@@ -95,9 +95,7 @@ export default function Register() {
                             onChange={(e) => setUsername(e.target.value)}
                             placeholder="Choose a username"
                             required
-                            autoComplete="new-password"
-                            readOnly={true}
-                            onFocus={(e) => e.target.removeAttribute('readonly')}
+                            autoComplete="off"
                         />
                     </div>
 
@@ -113,8 +111,6 @@ export default function Register() {
                             placeholder="••••••••"
                             required
                             autoComplete="new-password"
-                            readOnly={true}
-                            onFocus={(e) => e.target.removeAttribute('readonly')}
                         />
                     </div>
 
