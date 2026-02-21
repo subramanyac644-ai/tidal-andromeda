@@ -19,7 +19,12 @@ export async function POST(req: Request) {
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
-        const userRole = role === "admin" ? "admin" : "user";
+        const userRole = role === "admin" ? "user" : "user"; // Force all registrations to "user"
+
+        // Extra safety check
+        if (role === "admin") {
+            return NextResponse.json({ message: "Admin registration is restricted" }, { status: 403 });
+        }
 
         const newUser = new User({
             username,

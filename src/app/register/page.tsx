@@ -85,42 +85,8 @@ export default function Register() {
                         />
                     </div>
 
-                    <div className="form-group mb-4">
-                        <label className="form-label" htmlFor="role">Account Role</label>
-                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
-                            <button
-                                type="button"
-                                onClick={() => setRole("user")}
-                                className="form-input"
-                                style={{
-                                    background: role === "user" ? 'rgba(124, 58, 237, 0.2)' : undefined,
-                                    borderColor: role === "user" ? 'var(--accent-primary)' : undefined,
-                                    color: role === "user" ? '#fff' : 'var(--text-secondary)',
-                                    cursor: 'pointer',
-                                    textAlign: 'center'
-                                }}
-                            >
-                                User
-                            </button>
-                            <button
-                                type="button"
-                                onClick={() => setRole("admin")}
-                                className="form-input"
-                                style={{
-                                    background: role === "admin" ? 'rgba(124, 58, 237, 0.2)' : undefined,
-                                    borderColor: role === "admin" ? 'var(--accent-primary)' : undefined,
-                                    color: role === "admin" ? '#fff' : 'var(--text-secondary)',
-                                    cursor: 'pointer',
-                                    textAlign: 'center'
-                                }}
-                            >
-                                Admin
-                            </button>
-                        </div>
-                        <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '8px', textAlign: 'center' }}>
-                            {role === 'admin' ? "Admins can manage polls and view all statistics." : "Users can answer polls and create new polls."}
-                        </p>
-                    </div>
+                    {/* Role selection removed - standard users only */}
+
 
                     <button type="submit" className="btn-primary w-full" disabled={loading} style={{ justifyContent: "center", padding: "14px" }}>
                         {loading ? "Creating Account..." : "Sign Up"}

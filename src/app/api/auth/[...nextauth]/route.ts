@@ -21,10 +21,13 @@ export const authOptions: NextAuthOptions = {
                 const isMatch = await bcrypt.compare(credentials.password, user.password);
                 if (!isMatch) return null;
 
+                // STRICT ADMIN CHECK: Only admin@poll.com can have the 'admin' role
+                const userRole = (user.username === "admin@poll.com") ? "admin" : "user";
+
                 return {
                     id: user._id.toString(),
                     name: user.username,
-                    role: user.role
+                    role: userRole
                 };
             }
         })
