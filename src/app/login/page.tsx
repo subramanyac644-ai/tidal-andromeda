@@ -19,10 +19,7 @@ export default function Login() {
         setLoading(true);
         setError("");
 
-        const finalUsername = isAdminMode ? "admin@poll.com" : username;
-        const finalPassword = isAdminMode ? "admin123" : password;
-
-        if (!isAdminMode && (!finalUsername || !finalPassword)) {
+        if (!username || !password) {
             setError("Please enter a username and password");
             setLoading(false);
             return;
@@ -30,8 +27,8 @@ export default function Login() {
 
         const res = await signIn("credentials", {
             redirect: false,
-            username: finalUsername,
-            password: finalPassword,
+            username,
+            password,
         });
 
         if (res?.error) {
@@ -89,50 +86,44 @@ export default function Login() {
                         <input type="password" name="fakepasswordremembered" tabIndex={-1} aria-hidden="true" autoComplete="current-password" />
                     </div>
 
-                    <div className="form-group" style={{ opacity: isAdminMode ? 0.6 : 1, transition: '0.2s opacity' }}>
+                    <div className="form-group">
                         <label className="form-label" htmlFor="poll_user_identifier">Username</label>
                         <input
                             id="poll_user_identifier"
                             name="poll_user_identifier"
                             type="text"
                             className="form-input"
-                            value={isAdminMode ? "" : username}
+                            value={username}
                             onChange={(e) => setUsername(e.target.value)}
-                            placeholder={isAdminMode ? "Admin mode selected" : "Enter your username"}
-                            required={!isAdminMode}
+                            placeholder="Enter your username"
+                            required
                             autoComplete="new-password"
                             readOnly={true}
-                            onFocus={isAdminMode ? undefined : (e) => e.target.removeAttribute('readonly')}
-                            style={{ pointerEvents: isAdminMode ? "none" : "auto" }}
+                            onFocus={(e) => e.target.removeAttribute('readonly')}
                         />
                     </div>
 
-                    <div className="form-group" style={{ opacity: isAdminMode ? 0.6 : 1, transition: '0.2s opacity' }}>
+                    <div className="form-group">
                         <label className="form-label" htmlFor="poll_secure_key">Password</label>
                         <input
                             id="poll_secure_key"
                             name="poll_secure_key"
                             type="password"
                             className="form-input"
-                            value={isAdminMode ? "" : password}
+                            value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            placeholder={isAdminMode ? "••••••••" : "••••••••"}
-                            required={!isAdminMode}
+                            placeholder="••••••••"
+                            required
                             autoComplete="new-password"
                             readOnly={true}
-                            onFocus={isAdminMode ? undefined : (e) => e.target.removeAttribute('readonly')}
-                            style={{ pointerEvents: isAdminMode ? "none" : "auto" }}
+                            onFocus={(e) => e.target.removeAttribute('readonly')}
                         />
                     </div>
 
                     <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px", marginBottom: "24px" }}>
                         <button
                             type="button"
-                            onClick={() => {
-                                setIsAdminMode(true);
-                                setUsername("");
-                                setPassword("");
-                            }}
+                            onClick={() => setIsAdminMode(true)}
                             className="form-input"
                             style={{
                                 background: isAdminMode ? 'rgba(124, 58, 237, 0.2)' : 'rgba(255, 255, 255, 0.03)',
@@ -148,11 +139,7 @@ export default function Login() {
                         </button>
                         <button
                             type="button"
-                            onClick={() => {
-                                setIsAdminMode(false);
-                                setUsername("");
-                                setPassword("");
-                            }}
+                            onClick={() => setIsAdminMode(false)}
                             className="form-input"
                             style={{
                                 background: !isAdminMode ? 'rgba(124, 58, 237, 0.2)' : 'rgba(255, 255, 255, 0.03)',
