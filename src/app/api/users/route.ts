@@ -53,8 +53,8 @@ export async function DELETE(req: Request) {
             return NextResponse.json({ message: "User not found" }, { status: 404 });
         }
 
-        // Optional: Clean up polls created by this user
-        // await Poll.deleteMany({ creator: userId });
+        // Clean up polls created by this user to prevent orphaned data crashes
+        await Poll.deleteMany({ creator: userId });
 
         return NextResponse.json({ message: "User deleted successfully" });
     } catch (error) {

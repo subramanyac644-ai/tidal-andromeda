@@ -119,7 +119,7 @@ export default function Dashboard() {
     // Admins see all polls to manage them, Users see only their own
     const displayedPolls = isAdmin
         ? polls
-        : polls.filter((poll: any) => poll.creator._id === session?.user.id || poll.creator === session?.user.id || poll.creator.username === session?.user.name);
+        : polls.filter((poll: any) => poll.creator?._id === session?.user?.id || poll.creator === session?.user?.id || poll.creator?.username === session?.user?.name);
 
     return (
         <div className="container" style={{ padding: "60px 24px", maxWidth: isAdmin ? "1400px" : "1200px" }}>
