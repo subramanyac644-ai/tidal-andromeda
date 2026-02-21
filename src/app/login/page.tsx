@@ -72,30 +72,40 @@ export default function Login() {
                     </div>
                 )}
 
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} autoComplete="off">
+                    {/* Hidden dummy fields to absorb aggressive browser autofill */}
+                    <div style={{ position: 'absolute', width: '1px', height: '1px', overflow: 'hidden', opacity: 0 }}>
+                        <input type="text" name="fakeusernameremembered" tabIndex={-1} aria-hidden="true" autoComplete="username" />
+                        <input type="password" name="fakepasswordremembered" tabIndex={-1} aria-hidden="true" autoComplete="current-password" />
+                    </div>
+
                     <div className="form-group">
-                        <label className="form-label" htmlFor="username">Username</label>
+                        <label className="form-label" htmlFor="poll_user_identifier">Username</label>
                         <input
-                            id="username"
+                            id="poll_user_identifier"
+                            name="poll_user_identifier"
                             type="text"
                             className="form-input"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                             placeholder="Enter your username"
                             required
+                            autoComplete="new-password"
                         />
                     </div>
 
                     <div className="form-group">
-                        <label className="form-label" htmlFor="password">Password</label>
+                        <label className="form-label" htmlFor="poll_secure_key">Password</label>
                         <input
-                            id="password"
+                            id="poll_secure_key"
+                            name="poll_secure_key"
                             type="password"
                             className="form-input"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             placeholder="••••••••"
                             required
+                            autoComplete="new-password"
                         />
                     </div>
 
